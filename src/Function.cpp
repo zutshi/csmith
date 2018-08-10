@@ -569,7 +569,9 @@ Function::Output(std::ostream &out)
 	if (!CGOptions::concise()) {
 		feffect.Output(out);
 	}
+        cout<<"\n//===========HDR BEGINS===========\n";
 	OutputHeader(out);
+        cout<<"\n//===========HDR ENDS===========\n";
 	outputln(out);
 
 	if (CGOptions::depth_protect()) {
@@ -582,7 +584,9 @@ Function::Output(std::ostream &out)
 	if (!fact_changed && !union_field_read && !is_pointer_referenced()) {
 		fm = 0;
 	}
+        cout<<"\n//===========BODY BEGINS===========\n";
 	body->Output(out, fm);
+        cout<<"\n//===========BODY ENDS===========\n";
 
 	if (CGOptions::depth_protect()) {
 		out << "else";
@@ -867,6 +871,57 @@ OutputFunctions(std::ostream &out)
 	for_each(FuncList.begin(), FuncList.end(),
 			 std::bind2nd(std::ptr_fun(OutputFunction), &out));
 }
+
+
+tuple<string, string> Function::OutputHeaderBody()
+{
+        stringstream ssHeader;
+        stringstream ssBody;
+
+
+	if (is_builtin)
+		return make_tuple("", "");
+
+	OutputMgr::set_curr_func(name);
+	if (!CGOptions::concise()) {
+		//feffect.Output(out);
+	}
+	OutputHeader(ssHeader);
+
+	if (CGOptions::depth_protect()) {
+                throw;
+	}
+
+	FactMgr* fm = get_fact_mgr_for_func(this);
+	// if nothing interesting happens, we don't want to see facts for statements
+	if (!fact_changed && !union_field_read && !is_pointer_referenced()) {
+		fm = 0;
+	}
+	body->Output(ssBody, fm);
+
+	if (CGOptions::depth_protect()) {
+            throw;
+	}
+
+        return make_tuple(ssHeader.str(), ssBody.str());
+}
+
+
+void GetFunctions(vector<tuple<string, string>> &funs){
+
+    for(size_t i=0; i < FuncList.size(); ++i){
+        /*
+        string header, body;
+        tie(header, body) = FuncList[i]->OutputHeaderBody();
+        cout<<header<<body<<endl;
+        */
+        auto HeaderBody = FuncList[i]->OutputHeaderBody();
+        if (get<0>(HeaderBody) != "")
+            funs.push_back(HeaderBody);
+    }
+    return;
+}
+
 
 /*
  * Delete a single function

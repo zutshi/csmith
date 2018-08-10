@@ -173,6 +173,15 @@ Expression::make_random(CGContext &cg_context, const Type* type, const CVQualifi
 	// if no term type is provided, choose a random term type with restrictions
 	if (tt == MAX_TERM_TYPES) {
 		VectorFilter filter(&Expression::exprTable_);
+
+                //Max # of funcs = 2
+                /*
+                if(FuncListSize() >= 2){
+                    filter.add(eFunction);
+                    cout<<"No More Functions! "<<FuncListSize()<<"\n";
+                }
+                */
+
 		if (no_func ||
 			(!CGOptions::return_structs() && type->eType == eStruct) ||
 			(!CGOptions::return_unions() && type->eType == eUnion)) {
@@ -260,6 +269,16 @@ Expression::make_random_param(CGContext &cg_context, const Type* type, const CVQ
 	// if a term type is provided, no need to choose random term type
 	if (tt == MAX_TERM_TYPES) {
 		VectorFilter filter(&Expression::paramTable_);
+
+                //Max # of funcs = 2
+                /*
+                if(FuncListSize() >= 2){
+                    filter.add(eFunction);
+                    cout<<"No More Functions! "<<FuncListSize()<<"\n";
+                }
+                */
+
+
 		filter.add(eConstant);   // don't call functions with constant parameters because it is not interesting
 		if ((!CGOptions::return_structs() && type->eType == eStruct) ||
 			(!CGOptions::return_unions() && type->eType == eUnion)) {

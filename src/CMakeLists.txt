@@ -75,6 +75,7 @@ set(csmith_SOURCES
   CoverageTestExtension.h
   CrestExtension.cpp
   CrestExtension.h
+  CSmithLib.cpp
   DFSOutputMgr.cpp
   DFSOutputMgr.h
   DFSProgramGenerator.cpp
@@ -132,6 +133,10 @@ set(csmith_SOURCES
   FunctionInvocationUnary.h
   FunctionInvocationUser.cpp
   FunctionInvocationUser.h
+  GranOutputMgr.cpp
+  GranOutputMgr.h
+  GranProgramGenerator.cpp
+  GranProgramGenerator.h
   KleeExtension.cpp
   KleeExtension.h
   Lhs.cpp
@@ -149,7 +154,7 @@ set(csmith_SOURCES
   ProbabilityTable.h
   RandomNumber.cpp
   RandomNumber.h
-  RandomProgramGenerator.cpp
+  #RandomProgramGenerator.cpp
   Reducer.cpp
   Reducer.h
   ReducerOutputMgr.cpp

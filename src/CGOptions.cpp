@@ -98,6 +98,7 @@ DEFINE_GETTER_SETTER_INT (max_nested_struct_level)
 DEFINE_GETTER_SETTER_STRING_REF(struct_output)
 DEFINE_GETTER_SETTER_BOOL (fixed_struct_fields)
 DEFINE_GETTER_SETTER_BOOL (expand_struct)
+DEFINE_GETTER_SETTER_INT (min_structs_and_unions)
 DEFINE_GETTER_SETTER_BOOL (use_struct)
 DEFINE_GETTER_SETTER_BOOL (use_union)
 DEFINE_GETTER_SETTER_INT (max_indirect_level)
@@ -237,6 +238,7 @@ CGOptions::set_default_settings(void)
 	CGOptions::concise(false);
 	CGOptions::nomain(false);
 	random_based(true);
+	min_structs_and_unions(CGOPTIONS_DEFAULT_MIN_STRUCTS_AND_UNIONS);
 	use_struct(true);
 	use_union(true);
 	compact_output(false);

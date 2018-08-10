@@ -64,6 +64,7 @@ using namespace std;
 #define CGOPTIONS_DEFAULT_SPLIT_FILES_DIR	("./output")
 #define CGOPTIONS_DEFAULT_OUTPUT_FILE		("")
 #define PLATFORM_CONFIG_FILE                ("platform.info")
+#define CGOPTIONS_DEFAULT_MIN_STRUCTS_AND_UNIONS (20)
 
 /*
  *
@@ -129,6 +130,9 @@ public:
 
 	static bool use_struct();
 	static bool use_struct(bool p);
+
+	static int min_structs_and_unions();
+	static int min_structs_and_unions(int p);
 
 	static bool use_union();
 	static bool use_union(bool p);
@@ -504,6 +508,7 @@ private:
 	static bool  fixed_struct_fields_;
 	static bool  expand_struct_;
 	static bool use_struct_;
+	static int min_structs_and_unions_;
 	static bool use_union_;
 	static int  max_indirect_level_;
 	static int  max_array_dimensions_;

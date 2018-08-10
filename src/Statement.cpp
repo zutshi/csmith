@@ -152,6 +152,17 @@ bool StatementFilter::filter(int value) const
 	const Type* return_type = cg_context_.get_current_func()->return_type;
 	bool no_return = (return_type->eType == eSimple && return_type->simple_type == eVoid);
 
+        //ADI: No if else!
+        //TODO: add this to CGOptions
+        if (type == eIfElse){
+            return true;
+        }
+        //ADI: No loops!
+        //TODO: add this to CGOptions
+        if (type == eArrayOp){
+            return true;
+        }
+
 	if (type == eBlock) {
 		return true;
 	}
@@ -254,6 +265,7 @@ Statement::make_random(CGContext &cg_context,
 		StatementFilter filter(cg_context);
 		t = StatementProbability(&filter);
 		ERROR_GUARD(NULL);
+                //cout<<"filtered if statemetn\n";
 	}
 	FactMgr* fm = get_fact_mgr(&cg_context);
 	FactVec pre_facts = fm->global_facts;
@@ -280,8 +292,11 @@ Statement::make_random(CGContext &cg_context,
 		s = StatementFor::make_random(cg_context);
 		break;
 	case eIfElse:
-		s = StatementIf::make_random(cg_context);
+                {
+                    assert(false);//TODO:// can never happen as ifElse have been filtered.
+                    s = StatementIf::make_random(cg_context);
 		break;
+                }
 	case eInvoke:
 		s = StatementExpr::make_random(cg_context);
 		break;
@@ -298,8 +313,10 @@ Statement::make_random(CGContext &cg_context,
 		s = StatementGoto::make_random(cg_context);
 		break;
 	case eArrayOp:
+                {
 		s = StatementArrayOp::make_random(cg_context);
 		break;
+                }
 	}
 
 	ERROR_GUARD(NULL);

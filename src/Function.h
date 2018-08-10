@@ -83,6 +83,7 @@ public:
 	void generate_body_with_known_params(const CGContext &prev_context, Effect& effect_accum);
 	void compute_summary(void);
 
+        tuple<string, string> OutputHeaderBody();
 	void Output(std::ostream &);
 	void OutputForwardDecl(std::ostream &);
 
@@ -147,6 +148,7 @@ Function *GetFirstFunction(void);
 long FuncListSize(void);
 void OutputForwardDeclarations(std::ostream &out);
 void OutputFunctions(std::ostream &out);
+void GetFunctions(vector<tuple<string, string>> &funs);
 
 const std::vector<Function*>& get_all_functions(void);
 FactMgr* get_fact_mgr_for_func(const Function* func);

@@ -99,6 +99,7 @@ FUTURE:
 
 using namespace std;
 
+#define PACKAGE_STRING "csmith 2.4.0"
 //#define PACKAGE_STRING "csmith 1.1.1"
 ///////////////////////////////////////////////////////////////////////////////
 

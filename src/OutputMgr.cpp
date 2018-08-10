@@ -31,6 +31,9 @@
 #  include <config.h>
 #endif
 
+//ADI
+#define PACKAGE_STRING "csmith 2.4.0"
+
 #include "OutputMgr.h"
 
 #include <cassert>

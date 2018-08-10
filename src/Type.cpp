@@ -68,7 +68,7 @@ Type *Type::void_type = NULL;
 
 // ---------------------------------------------------------------------
 // List of all types used in the program
-static vector<Type *> AllTypes;
+vector<Type *> AllTypes;
 static vector<Type *> derived_types;
 
 //////////////////////////////////////////////////////////////////////
@@ -639,7 +639,7 @@ static bool
 MoreTypesProbability(void)
 {
 	// Always have at least 10 types in the program.
-	if (AllTypes.size() < 10)
+	if (AllTypes.size() < CGOptions::min_structs_and_unions())
 		return true;
 	// by default 50% probability for each additional struct or union type.
 	return rnd_flipcoin(MoreStructUnionTypeProb);
